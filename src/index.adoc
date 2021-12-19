@@ -1,0 +1,53 @@
+= Software project setup guide
+:favicon: ./favicon.png
+:stylesheet: dark.css
+:lang: en
+:author: Christoph 'Youka' Spanknebel
+:email: https://github.com/Youka
+:description: Listing and explaining initial software project features and contents as well as future considerations for a secure, user-friendly and managable product.
+:keywords: software,project,setup,guide,book
+:doctype: book
+:tabsize: 4
+:toc: right
+:toclevels: 2
+:sectnums:
+:sectanchors:
+:stem: asciimath
+
+include::_01-overview.adoc[]
+
+<<<
+
+include::_02-planning.adoc[]
+
+<<<
+
+include::_03-minimal_setup.adoc[]
+
+<<<
+
+include::_04-automation.adoc[]
+
+<<<
+
+include::_05-hardening.adoc[]
+
+<<<
+
+include::_06-publishing.adoc[]
+
+<<<
+
+include::_07-future.adoc[]
+
+<<<
+
+include::_08-appendix.adoc[]
+
+<<<
+
+include::_09-glossary.adoc[]
+
+<<<
+
+include::_10-references.adoc[]

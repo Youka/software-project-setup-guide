@@ -1,0 +1,11 @@
+== Automation
+_TODO_
+
+=== Build scripts
+_TODO_
+
+=== CI/CD
+_TODO_
+
+=== Notifications
+_TODO_

@@ -1,0 +1,19 @@
+[appendix]
+== Recommended Tools
+Following recommendations are by personal experience and industrial proven.
+
+=== Linter
+* Java: https://checkstyle.sourceforge.io/[Checkstyle]
+* Kotlin: https://ktlint.github.io/[ktlint]
+* Javascript: https://eslint.org/[eslint]
+* Git (commits): https://github.com/conventional-changelog/commitlint[commitlint]
+
+=== Versioning
+* Source code: https://git-scm.com/[Git]
+* Database structure: https://flywaydb.org/[Flyway]
+
+ifdef::backend-html5[]
+[appendix]
+== Downloads
+* link:software-project-setup-guide.pdf[PDF version of this guide]
+endif::[]

@@ -1,0 +1,17 @@
+== Minimal setup
+_TODO_
+
+=== Hello world
+_TODO_
+
+=== Project settings
+_TODO_
+
+=== README
+_TODO_
+
+=== Build system
+_TODO_
+
+=== Assistance tools
+_TODO_

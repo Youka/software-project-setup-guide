@@ -1,0 +1,3 @@
+[bibliography]
+== References
+* https://github.com/Youka/software-project-setup-guide[GitHub project]

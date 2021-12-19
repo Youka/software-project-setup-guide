@@ -1,0 +1,10 @@
+[glossary]
+== Glossary
+* *a11y*: "Accessibility"
+* *ci*: "Continuous Integration"
+* *cd*: "Continuous Delivery" (/ "Continuous Deployment")
+* *i18n*: "Internationalization"
+* *k8s*: "Kubernetes"
+* *pwa*: "Progressive Web App"
+* *seo*: "Search Engine Optimization"
+* *tl;dr*: "Too long, didn't read"

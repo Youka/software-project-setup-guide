@@ -1,0 +1,44 @@
+== Planning
+_TODO_
+
+=== Team
+_TODO_
+
+=== Documentation
+_TODO_
+
+==== Text
+_TODO_
+
+==== Tables
+_TODO_
+
+==== Charts
+_TODO_
+
+=== Tickets
+_TODO_
+
+=== Hosting
+_TODO_
+
+==== Source code
+_TODO_
+
+==== Runtime environment
+_TODO_
+
+=== Roadmap
+_TODO_
+
+==== Stages
+_TODO_
+
+==== Priorities
+_TODO_
+
+==== Agility
+_TODO_
+
+==== Conventions
+_TODO_

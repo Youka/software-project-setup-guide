@@ -1,0 +1,37 @@
+# Reference: https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+
+# Workflow name (referencable)
+name: Build pages
+
+# Workflow trigger
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+# Workflow tasks to run in order
+jobs:
+  build-pages:
+    name: Build and deploy to gh-pages
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1  # https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+        with:
+          ruby-version: 3.0
+          bundler-cache: true
+      - name: Install asciidoctor
+        run: |
+          gem install asciidoctor-pdf -v 1.6.2
+          asciidoctor -v
+      - name: Build documents
+        run: ./build.sh
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.2  # https://github.com/marketplace/actions/deploy-to-github-pages
+        with:
+          branch: gh-pages
+          folder: out
+          single-commit: true

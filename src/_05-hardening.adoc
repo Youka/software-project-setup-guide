@@ -1,0 +1,17 @@
+== Hardening
+_TODO_
+
+=== Cleaning
+_TODO_
+
+=== Tests
+_TODO_
+
+=== Code improvements
+_TODO_
+
+=== Shared resources
+_TODO_
+
+=== More documentation
+_TODO_

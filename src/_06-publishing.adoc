@@ -1,0 +1,14 @@
+== Publishing
+_TODO_
+
+=== Software
+_TODO_
+
+=== Documentation
+_TODO_
+
+=== Quality reports
+_TODO_
+
+=== Product advertisement
+_TODO_
