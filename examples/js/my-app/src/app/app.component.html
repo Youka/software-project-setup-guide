@@ -1,0 +1,5 @@
+<h1>{{ 'title' | translate }}</h1>
+<select (change)="setLang($event)">
+  <option *ngFor="let lang of getLangs()" [value]="lang.id" [selected]="lang.id == getLang()?.id">{{lang.display}}</option>
+</select>
+<router-outlet></router-outlet>
