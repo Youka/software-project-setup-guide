@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="description" content="Listing and explaining initial software project features and contents as well as future considerations for a secure, user-friendly and managable product.">
+<meta name="keywords" content="software,project,setup,guide,book">
+<meta name="author" content="Christoph 'Youka' Spanknebel">
+<link rel="icon" type="image/png" href="./favicon.png">
+<title>Software project setup guide</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* Text styles */
+
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+</style>
+</head>
+<body class="book toc2 toc-right">
+<div id="header">
+<h1>Software project setup guide</h1>
+<div class="details">
+<span id="author" class="author">Christoph 'Youka' Spanknebel</span><br>
+<span id="email" class="email"><a href="https://github.com/Youka" class="bare">https://github.com/Youka</a></span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_planning">1. Planning</a>
+<ul class="sectlevel2">
+<li><a href="#_team">1.1. Team</a></li>
+<li><a href="#_documentation">1.2. Documentation</a></li>
+<li><a href="#_tickets">1.3. Tickets</a></li>
+<li><a href="#_hosting">1.4. Hosting</a></li>
+<li><a href="#_roadmap">1.5. Roadmap</a></li>
+</ul>
+</li>
+<li><a href="#_minimal_setup">2. Minimal setup</a>
+<ul class="sectlevel2">
+<li><a href="#_hello_world">2.1. Hello world</a></li>
+<li><a href="#_project_settings">2.2. Project settings</a></li>
+<li><a href="#_readme">2.3. README</a></li>
+<li><a href="#_build_system">2.4. Build system</a></li>
+<li><a href="#_assistance_tools">2.5. Assistance tools</a></li>
+</ul>
+</li>
+<li><a href="#_automation">3. Automation</a>
+<ul class="sectlevel2">
+<li><a href="#_build_scripts">3.1. Build scripts</a></li>
+<li><a href="#_cicd">3.2. CI/CD</a></li>
+<li><a href="#_notifications">3.3. Notifications</a></li>
+</ul>
+</li>
+<li><a href="#_hardening">4. Hardening</a>
+<ul class="sectlevel2">
+<li><a href="#_cleaning">4.1. Cleaning</a></li>
+<li><a href="#_tests">4.2. Tests</a></li>
+<li><a href="#_code_improvements">4.3. Code improvements</a></li>
+<li><a href="#_shared_resources">4.4. Shared resources</a></li>
+<li><a href="#_more_documentation">4.5. More documentation</a></li>
+</ul>
+</li>
+<li><a href="#_publishing">5. Publishing</a>
+<ul class="sectlevel2">
+<li><a href="#_software">5.1. Software</a></li>
+<li><a href="#_documentation_2">5.2. Documentation</a></li>
+<li><a href="#_quality_reports">5.3. Quality reports</a></li>
+<li><a href="#_product_advertisement">5.4. Product advertisement</a></li>
+</ul>
+</li>
+<li><a href="#_future">6. Future</a>
+<ul class="sectlevel2">
+<li><a href="#_updates">6.1. Updates</a></li>
+<li><a href="#_extensions">6.2. Extensions</a></li>
+<li><a href="#_migrations">6.3. Migrations</a></li>
+</ul>
+</li>
+<li><a href="#_recommended_tools">Appendix A: Recommended Tools</a>
+<ul class="sectlevel2">
+<li><a href="#_linter">A.1. Linter</a></li>
+<li><a href="#_versioning">A.2. Versioning</a></li>
+</ul>
+</li>
+<li><a href="#_downloads">Appendix B: Downloads</a></li>
+<li><a href="#_glossary">Glossary</a></li>
+<li><a href="#_references">References</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_planning"><a class="anchor" href="#_planning"></a>1. Planning</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_team"><a class="anchor" href="#_team"></a>1.1. Team</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_documentation"><a class="anchor" href="#_documentation"></a>1.2. Documentation</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect3">
+<h4 id="_text"><a class="anchor" href="#_text"></a>1.2.1. Text</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tables"><a class="anchor" href="#_tables"></a>1.2.2. Tables</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_charts"><a class="anchor" href="#_charts"></a>1.2.3. Charts</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tickets"><a class="anchor" href="#_tickets"></a>1.3. Tickets</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hosting"><a class="anchor" href="#_hosting"></a>1.4. Hosting</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect3">
+<h4 id="_source_code"><a class="anchor" href="#_source_code"></a>1.4.1. Source code</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_runtime_environment"><a class="anchor" href="#_runtime_environment"></a>1.4.2. Runtime environment</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_roadmap"><a class="anchor" href="#_roadmap"></a>1.5. Roadmap</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect3">
+<h4 id="_stages"><a class="anchor" href="#_stages"></a>1.5.1. Stages</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_priorities"><a class="anchor" href="#_priorities"></a>1.5.2. Priorities</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_agility"><a class="anchor" href="#_agility"></a>1.5.3. Agility</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conventions"><a class="anchor" href="#_conventions"></a>1.5.4. Conventions</h4>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_minimal_setup"><a class="anchor" href="#_minimal_setup"></a>2. Minimal setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_hello_world"><a class="anchor" href="#_hello_world"></a>2.1. Hello world</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_project_settings"><a class="anchor" href="#_project_settings"></a>2.2. Project settings</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_readme"><a class="anchor" href="#_readme"></a>2.3. README</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_system"><a class="anchor" href="#_build_system"></a>2.4. Build system</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_assistance_tools"><a class="anchor" href="#_assistance_tools"></a>2.5. Assistance tools</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automation"><a class="anchor" href="#_automation"></a>3. Automation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_build_scripts"><a class="anchor" href="#_build_scripts"></a>3.1. Build scripts</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cicd"><a class="anchor" href="#_cicd"></a>3.2. CI/CD</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notifications"><a class="anchor" href="#_notifications"></a>3.3. Notifications</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hardening"><a class="anchor" href="#_hardening"></a>4. Hardening</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_cleaning"><a class="anchor" href="#_cleaning"></a>4.1. Cleaning</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tests"><a class="anchor" href="#_tests"></a>4.2. Tests</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_code_improvements"><a class="anchor" href="#_code_improvements"></a>4.3. Code improvements</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shared_resources"><a class="anchor" href="#_shared_resources"></a>4.4. Shared resources</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_more_documentation"><a class="anchor" href="#_more_documentation"></a>4.5. More documentation</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_publishing"><a class="anchor" href="#_publishing"></a>5. Publishing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_software"><a class="anchor" href="#_software"></a>5.1. Software</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_documentation_2"><a class="anchor" href="#_documentation_2"></a>5.2. Documentation</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality_reports"><a class="anchor" href="#_quality_reports"></a>5.3. Quality reports</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_product_advertisement"><a class="anchor" href="#_product_advertisement"></a>5.4. Product advertisement</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_future"><a class="anchor" href="#_future"></a>6. Future</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div class="sect2">
+<h3 id="_updates"><a class="anchor" href="#_updates"></a>6.1. Updates</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extensions"><a class="anchor" href="#_extensions"></a>6.2. Extensions</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_migrations"><a class="anchor" href="#_migrations"></a>6.3. Migrations</h3>
+<div class="paragraph">
+<p><em>TODO</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recommended_tools"><a class="anchor" href="#_recommended_tools"></a>Appendix A: Recommended Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Following recommendations are by personal experience and industrial proven.</p>
+</div>
+<div class="sect2">
+<h3 id="_linter"><a class="anchor" href="#_linter"></a>A.1. Linter</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Java: <a href="https://checkstyle.sourceforge.io/">Checkstyle</a></p>
+</li>
+<li>
+<p>Kotlin: <a href="https://ktlint.github.io/">ktlint</a></p>
+</li>
+<li>
+<p>Javascript: <a href="https://eslint.org/">eslint</a></p>
+</li>
+<li>
+<p>Git (commits): <a href="https://github.com/conventional-changelog/commitlint">commitlint</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_versioning"><a class="anchor" href="#_versioning"></a>A.2. Versioning</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Source code: <a href="https://git-scm.com/">Git</a></p>
+</li>
+<li>
+<p>Database structure: <a href="https://flywaydb.org/">Flyway</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_downloads"><a class="anchor" href="#_downloads"></a>Appendix B: Downloads</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="software-project-setup-guide.pdf">PDF version of this guide</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary"><a class="anchor" href="#_glossary"></a>Glossary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>a11y</strong>: "Accessibility"</p>
+</li>
+<li>
+<p><strong>ci</strong>: "Continuous Integration"</p>
+</li>
+<li>
+<p><strong>cd</strong>: "Continuous Delivery" (/ "Continuous Deployment")</p>
+</li>
+<li>
+<p><strong>i18n</strong>: "Internationalization"</p>
+</li>
+<li>
+<p><strong>k8s</strong>: "Kubernetes"</p>
+</li>
+<li>
+<p><strong>pwa</strong>: "Progressive Web App"</p>
+</li>
+<li>
+<p><strong>seo</strong>: "Search Engine Optimization"</p>
+</li>
+<li>
+<p><strong>tl;dr</strong>: "Too long, didn&#8217;t read"</p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references"><a class="anchor" href="#_references"></a>References</h2>
+<div class="sectionbody">
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a href="https://github.com/Youka/software-project-setup-guide">GitHub project</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-01-24 01:36:00 UTC
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>
